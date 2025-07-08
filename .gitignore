@@ -1,0 +1,4 @@
+node_modules/
+api-products.json
+src/config/credentials.json
+.env
