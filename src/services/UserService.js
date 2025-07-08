@@ -5,8 +5,8 @@ const userRepository = require('../repositories/UserRepository');
 const getLocalDateTime = require('../utils/getLocalDateTime');
 const emailService = require('./emailService');
 
-const SECRET = process.env.JWT_SECRET;
-const CONFIRM_SECRET = process.env.CONFIRM_SECRET;
+const SECRET = process.env.JWT_SECRET || 'sua_chave_secreta_aqui';
+const CONFIRM_SECRET = process.env.CONFIRM_SECRET || 'chave_confirm_padrao';
 
 const userService = {
   async register(data) {

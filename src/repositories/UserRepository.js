@@ -1,22 +1,22 @@
 // src/repositories/UserRepository.js
 const { sheets, spreadsheetId } = require('../config/database');
 const getLocalDateTime = require('../utils/getLocalDateTime');
-const range = 'users!A2:J';
+const range = 'users!A2:K';
 
 const userMapper = {
   fromSheetRow(row) {
-    console.log(row)
     return {
       id: Number(row[0]),
       name: row[1] || '',
       email: row[2] || '',
       phone: row[3] || '',
-      password: row[4] || '',
-      remember_token: row[5] || '',
-      email_verified_at: row[6] || '',
-      active: row[7] === 'TRUE',
-      created_at: row[8] || '',
-      updated_at: row[9] || '',
+      image: row[4] || '',
+      password: row[5] || '',
+      remember_token: row[6] || '',
+      email_verified_at: row[7] || '',
+      active: row[8] === 'TRUE',
+      created_at: row[9] || '',
+      updated_at: row[10] || '',
     };
   },
 };
@@ -44,6 +44,7 @@ const userRepository = {
       userData.name,
       userData.email,
       userData.phone || '',
+      userData.image || '',
       userData.password,
       userData.remember_token || '',
       userData.email_verified_at || '',
@@ -98,18 +99,19 @@ const userRepository = {
       data.name || rows[rowIndex][1],
       data.email || rows[rowIndex][2],
       data.phone || rows[rowIndex][3],
-      data.password || rows[rowIndex][4],
-      data.remember_token || rows[rowIndex][5],
-      data.email_verified_at || rows[rowIndex][6],
-      data.active !== undefined ? String(data.active) : rows[rowIndex][7],
-      rows[rowIndex][8],
+      data.image !== undefined ? data.image : rows[rowIndex][4],
+      data.password || rows[rowIndex][5],
+      data.remember_token || rows[rowIndex][6],
+      data.email_verified_at || rows[rowIndex][7],
+      data.active !== undefined ? String(data.active) : rows[rowIndex][8],
+      rows[rowIndex][9],
       getLocalDateTime(),
     ];
 
     const targetRow = rowIndex + 2;
     await sheets.spreadsheets.values.update({
       spreadsheetId,
-      range: `users!A${targetRow}:J${targetRow}`,
+      range: `users!A${targetRow}:K${targetRow}`,
       valueInputOption: 'USER_ENTERED',
       resource: { values: [updatedRow] },
     });

@@ -27,7 +27,7 @@ module.exports = {
     try {
       const result = await userService.confirmUserEmail(req.params.token);
       res.json(result);
-    } catch {
+    } catch (error) {
       res.status(400).json({ error: error.message });
     }
   },

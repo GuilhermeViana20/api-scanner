@@ -1,5 +1,6 @@
 // src/middlewares/authMiddleware.js
 const jwt = require('jsonwebtoken');
+require('dotenv').config();
 
 const SECRET = process.env.JWT_SECRET || 'sua_chave_secreta_aqui';
 
